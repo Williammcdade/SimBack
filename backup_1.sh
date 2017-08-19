@@ -13,12 +13,15 @@ day=$(date +%A)
 host=$(hostname -s)
 archive="$host-$day.tgz"
 
-#Status
-echo "I've begun backing up $bk_files, standby"
-date
-echo
-
-tar czf $bk_folder/$archive $bk_files
+#Status & Script
+while true; do
+        read -p "Backing up $bk_files, Do you want to see verbose? Y/N " yn
+        case $yn in
+                [Yy]* ) tar -cvpzf $bk_folder/$archive $bk_files;; 
+                [Nn]* ) tar -cpzf $bk_folder/$archive $bk_files;;
+                * ) echo "Please answer yes or no.";;
+        esac
+done
 
 #Status
 echo
